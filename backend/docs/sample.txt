@@ -1,0 +1,33 @@
+# Introduction to RAG Applications
+
+Retrieval-Augmented Generation (RAG) combines information retrieval with a large language model (LLM). Instead of relying only on information learned during training, a RAG application searches a collection of documents and uses relevant text to help answer a user's question.
+
+## FastAPI
+
+FastAPI is a Python framework used to build web APIs. It allows applications to receive HTTP requests and return responses, often in JSON format. In a RAG application, FastAPI can provide endpoints for submitting questions, retrieving relevant documents, and returning generated answers.
+
+## Docker
+
+Docker packages an application and its dependencies into a container. Containers help applications run consistently across different environments. A Dockerfile describes how to build an application image, while Docker Compose defines and runs multiple services together.
+
+## Docker Compose
+
+Docker Compose can run a FastAPI backend and an Ollama service in the same application. Each service runs in its own container and can communicate with other services using its service name. For example, the backend can connect to Ollama using the URL http://ollama:11434.
+
+## Ollama
+
+Ollama allows developers to run supported large language models locally. In a RAG application, Ollama can generate answers using relevant document excerpts retrieved by the backend. The model used in this example is llama3.2:1b.
+
+## ChromaDB
+
+ChromaDB is a vector database that can store document chunks and their embeddings. When a user asks a question, the application can search for chunks that are semantically similar to the question. The retrieved text can then be passed to the language model as context.
+
+## The RAG Workflow
+
+1. Load documents into the application.
+2. Split documents into smaller chunks.
+3. Convert the chunks into embeddings.
+4. Store the embeddings and text in ChromaDB.
+5. Search for relevant chunks when a user asks a question.
+6. Send the question and retrieved context to the language model.
+7. Return the generated answer to the user.

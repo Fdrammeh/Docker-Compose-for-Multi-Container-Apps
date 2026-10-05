@@ -1,0 +1,38 @@
+# docker-compose.yml  (STARTER)
+# ================================
+# Run:   docker-compose up --build
+# Stop:  docker-compose down
+# Exec:  docker-compose exec ollama ollama pull llama3.2:1b
+
+version: "3.8"
+
+services:
+  backend:
+    build: ./backend
+
+    ports:
+      - "8000:8000"
+
+    environment:
+      OLLAMA_URL: "http://ollama:11434"
+      MODEL_NAME: "llama3.2:1b"
+      CHROMA_PATH: "/app/rag_db"
+
+    volumes:
+      - chroma_data:/app/rag_db
+
+    depends_on:
+      - ollama
+
+  ollama:
+    image: ollama/ollama
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - ollama_data:/root/.ollama
+
+volumes:
+  chroma_data:
+  ollama_data:
